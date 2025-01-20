@@ -13,6 +13,9 @@ import { path as rootDir } from "./util/path";
 const app: Application = express();
 const port = process.env.PORT || 8000;
 
+app.set("view engine", "ejs");
+app.set("views", path.join(rootDir, "views"));
+
 // Middleware
 app.use((req, res, next) => {
   console.log("INSIDE THE MIDDLEWARE!!!");
@@ -27,7 +30,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(rootDir, "views", "404.html"));
+  res.status(404).render("404", { title: "Page Not Found" });
 });
 
 app.listen(port, () => {
