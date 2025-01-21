@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Chat</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
+      <h1 class="text-2xl font-bold text-center mb-6">Create Chat</h1>
+      <form id="create-chat-form" class="space-y-4">
+        <!-- Name Input -->
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1"
+            >Your Name</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="block w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-600"
+        >
+          Create Chat
+        </button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("create-chat-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("name").value.trim();
+          if (name) {
+            localStorage.setItem("userId", name);
+            const req = await fetch("/chat/create", {
+              method: "POST",
+              body: JSON.stringify({ userId: name }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            const resp = await req.json();
+            if (resp.success) {
+              window.location.href = `/chat/${resp.id}?userId=${name}`;
+              return;
+            }
+            alert("Failed to create chat");
+          }
+        });
+    </script>
+  </body>
+</html>
