@@ -1,17 +1,12 @@
-import express, {
-  Express,
-  Request,
-  Response,
-  Application,
-  NextFunction,
-} from "express";
+import express, { Application } from "express";
 
 import { createServer } from "node:http";
 import { Server } from "socket.io";
-
 import chatRouter from "./routes/chat";
 import path from "path";
 import { path as rootDir } from "./util/path";
+
+import morgan from "morgan";
 
 const app: Application = express();
 const port = process.env.PORT || 8000;
@@ -27,6 +22,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(rootDir, "views"));
+
+app.use(express.static(path.join(rootDir, "views/scripts")));
+
+app.use(morgan("dev"));
 
 // Example custom middleware (optional)
 app.use((req, res, next) => {
