@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { chats } from "../util/db";
+import { Server } from "socket.io";
 
 const router = express.Router();
 
@@ -22,8 +23,10 @@ router.post("/create", (req: Request, res: Response) => {
 router.get("/:id", (req: Request, res: Response) => {
   const chat = chats.find((chat) => chat.id === req.params.id);
   if (chat) {
+    const io = req.app.get("io") as Server;
+
     res.render("chat/chat", {
-      chatInfo: chat,
+      chatInfo: { ...chat, sender: req.query.userId },
     });
     return;
   }

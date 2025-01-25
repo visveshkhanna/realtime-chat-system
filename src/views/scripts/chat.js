@@ -1,6 +1,5 @@
-const chatInfo = JSON.parse(`<%- JSON.stringify(chatInfo) %>`);
 const Message = (from, message) => {
-  const isSender = from === chatInfo.from;
+  const isSender = from === chatInfo.sender;
 
   return `
           <div class="flex ${isSender ? "justify-end" : "justify-start"}">
@@ -24,7 +23,7 @@ const input = document.getElementById("chat-input");
 const sendButton = document.getElementById("send-button");
 
 const messagesContainer = document.getElementById("messages-container");
-const socket = io("ws://localhost:8000", {
+const socket = io("ws://localhost:3001", {
   query: {
     id: chatInfo.id,
     user: JSON.stringify({
@@ -37,18 +36,18 @@ chatInfo.messages.forEach((message) => {
   messagesContainer.innerHTML += Message(message.from, message.content);
 });
 
-socket.on(`chat`, (message) => {
+socket.on(chatInfo.id, (message) => {
   messagesContainer.innerHTML += Message(message.from, message.content);
 });
 
 sendButton.addEventListener("click", () => {
   const message = input.value;
   if (message) {
-    socket.emit(`chat`, {
-      from: chatInfo.from,
+    socket.emit(chatInfo.id, {
+      from: chatInfo.sender,
       content: message,
     });
-    messagesContainer.innerHTML += Message(`<%- chatInfo.from %>`, message);
+    messagesContainer.innerHTML += Message(chatInfo.sender, message);
     input.value = "";
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }

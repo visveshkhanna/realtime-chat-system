@@ -2,6 +2,15 @@ document
   .getElementById("create-chat-form")
   .addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    const jwt = localStorage.getItem("jwt");
+
+    if (!jwt) {
+      alert("Please login first");
+      window.location.href = "/auth/login";
+      return;
+    }
+
     const name = document.getElementById("name").value.trim();
     if (name) {
       localStorage.setItem("userId", name);
@@ -9,6 +18,7 @@ document
         method: "POST",
         body: JSON.stringify({ userId: name }),
         headers: {
+          jwt: jwt,
           "Content-Type": "application/json",
         },
       });

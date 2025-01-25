@@ -19,7 +19,7 @@
         class="w-10 h-10 rounded-full mr-3"
       />
       <span id="chat-header-name" class="text-lg font-semibold"
-        ><%= chatInfo.to %></span
+        ><%= chatInfo.id %></span
       >
     </div>
 
@@ -47,6 +47,10 @@
       </button>
     </div>
     <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const _chatInfo = `<%- JSON.stringify(chatInfo) %>`;
+      const chatInfo = JSON.parse(_chatInfo);
+    </script>
     <script src="/chat.js"></script>
   </body>
 </html>
