@@ -14,9 +14,9 @@ router.get("/create", (req: Request, res: Response) => {
 });
 
 router.post("/create", (req: Request, res: Response) => {
-  const { userId } = req.body;
+  const { chatName } = req.body;
   const chatId = uuidv4();
-  chats.push({ id: chatId, from: userId, to: null, messages: [] });
+  chats.push({ id: chatId, name: chatName, users: [], messages: [] });
   res.json({ success: true, id: chatId });
 });
 

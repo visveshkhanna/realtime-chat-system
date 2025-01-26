@@ -38,8 +38,8 @@ interface AuthRequest extends Request {
 
 // AUTH MIDDLEWARE
 app.use((req, res, next) => {
-  const token = req.headers.jwt as string;
-  console.log("JWT TOKEN", token);
+  // const token = req.headers.jwt as string;
+  // console.log("JWT TOKEN", token);
   next();
 });
 
@@ -52,17 +52,52 @@ app.get("/", (req, res, next) => {
 });
 
 io.on("connection", (socket) => {
-  const userStr = socket.handshake.query.user as string;
+  console.log("Socket connected:", socket.id);
+
+  const jwtToken = socket.handshake.query.jwt as string;
   const chatId = socket.handshake.query.id as string;
 
-  console.log(`Socket connected: user =`, userStr, `chatId =`, chatId);
+  var user: any;
+  const jwtSession = jwt.verify(
+    jwtToken,
+    env.JWT_PRIVATE_KEY,
+    (err, decoded) => {
+      if (err) {
+        console.log("Error in verifying JWT token", err);
+        return;
+      }
+
+      user = JSON.parse(JSON.stringify(decoded));
+    }
+  );
+
+  if (!user) {
+    console.log("Unauthorized");
+    return;
+  }
 
   socket.join(chatId);
 
-  socket.on(chatId, (message: string) => {
-    console.log(`Received message in chat ${chatId}:`, message);
+  socket.on(chatId, (message: any) => {
+    console.log(
+      `Received message in chat ${chatId} from ${user.username}:`,
+      message
+    );
 
-    socket.broadcast.to(chatId).emit(chatId, message);
+    if (message.type === "action") {
+      socket.broadcast.to(chatId).emit(chatId, {
+        type: "action",
+        from: user.username,
+        action: message.action,
+      });
+    }
+    if (message.type === "message") {
+      socket.broadcast.to(chatId).emit(chatId, {
+        type: "message",
+        from: user.username,
+        content: message.content,
+      });
+    }
   });
 
   socket.on("disconnect", () => {

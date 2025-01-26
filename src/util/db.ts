@@ -4,10 +4,15 @@ interface Message {
   content: string;
 }
 
+interface User {
+  id: string;
+  username: string;
+}
+
 interface Chat {
   id: string;
-  from: string;
-  to: string | null;
+  name: string;
+  users: User[];
   messages: Message[];
 }
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Chat Page</title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/tailwindcss.js"></script>
   </head>
   <body class="h-screen flex flex-col">
     <!-- Header -->
@@ -19,15 +19,16 @@
         class="w-10 h-10 rounded-full mr-3"
       />
       <span id="chat-header-name" class="text-lg font-semibold"
-        ><%= chatInfo.id %></span
+        ><%= chatInfo.name %></span
       >
     </div>
 
     <!-- Messages Container (flex-1) -->
     <div
       id="messages-container"
-      class="flex-1 overflow-y-auto bg-white p-4 space-y-4"
+      class="relative flex-1 overflow-y-auto bg-white p-4 space-y-4"
     >
+      <div id="action-view" class="absolute bottom-2 left-2"></div>
       <!-- Messages will be dynamically appended here -->
     </div>
 

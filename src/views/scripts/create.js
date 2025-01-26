@@ -11,12 +11,11 @@ document
       return;
     }
 
-    const name = document.getElementById("name").value.trim();
-    if (name) {
-      localStorage.setItem("userId", name);
+    const chatName = document.getElementById("name").value.trim();
+    if (chatName) {
       const req = await fetch("/chat/create", {
         method: "POST",
-        body: JSON.stringify({ userId: name }),
+        body: JSON.stringify({ chatName: chatName }),
         headers: {
           jwt: jwt,
           "Content-Type": "application/json",
@@ -24,7 +23,7 @@ document
       });
       const resp = await req.json();
       if (resp.success) {
-        window.location.href = `/chat/${resp.id}?userId=${name}`;
+        window.location.href = `/chat/${resp.id}`;
         return;
       }
       alert("Failed to create chat");
