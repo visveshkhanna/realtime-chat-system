@@ -55,4 +55,17 @@ router.get("/:id", async (req: Request, res: Response) => {
   res.status(404).send("Chat not found");
 });
 
+router.get("/:id/join", async (req, res) => {
+  const _db = await db;
+  const chat = await _db.chat.find((chat) => chat.id === req.params.id);
+
+  if (chat) {
+    res.render("chat/join", {
+      chatInfo: { name: chat.name, id: chat.id },
+    });
+    return;
+  }
+  res.status(404).send;
+});
+
 export default router;
