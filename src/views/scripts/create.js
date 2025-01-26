@@ -10,7 +10,7 @@ document
       window.location.href = "/auth/login";
       return;
     }
-
+    const username = localStorage.getItem("username");
     const chatName = document.getElementById("name").value.trim();
     if (chatName) {
       const req = await fetch("/chat/create", {
@@ -23,9 +23,10 @@ document
       });
       const resp = await req.json();
       if (resp.success) {
-        window.location.href = `/chat/${resp.id}`;
+        window.location.href = `/chat/${resp.id}?user=${username}`;
         return;
       }
       alert("Failed to create chat");
+      window.location.href = `/auth/login`;
     }
   });

@@ -1,0 +1,57 @@
+{
+  "user": [],
+  "chat": [
+    {
+      "id": "70c0fed7-dc1f-4975-b690-d34f1202af5f",
+      "name": "123",
+      "users": [],
+      "messages": [
+        {
+          "id": "d2c5f52c-3068-4527-96b8-10b8f199cee4",
+          "from": "123",
+          "content": "hello"
+        },
+        {
+          "id": "8b7bfc76-bef5-4c37-a9e6-65a567e0332f",
+          "from": "visvesh",
+          "content": "hello"
+        }
+      ]
+    },
+    {
+      "id": "27d4743e-8568-43d1-bb7f-03628b9c344c",
+      "name": "testchat",
+      "users": [],
+      "messages": [
+        {
+          "id": "4978838c-e3cf-48fb-a819-785238d1a8f8",
+          "from": "123",
+          "content": "hello :>"
+        },
+        {
+          "id": "5ed28204-4a72-4e8e-85a4-e57f070d42b4",
+          "from": "123",
+          "content": "test"
+        }
+      ]
+    },
+    {
+      "id": "78ee3c4e-3b26-42b6-9076-c76034aebf18",
+      "name": "testchat",
+      "users": [],
+      "messages": [
+        {
+          "id": "a908173a-b8a7-4a1d-b506-6d8bb4efd23d",
+          "from": "khanna",
+          "content": "hello"
+        },
+        {
+          "id": "3b4eb959-2524-4122-96ea-430ff647a762",
+          "from": "visvesh",
+          "content": "hello"
+        }
+      ]
+    }
+  ],
+  "messages": []
+}

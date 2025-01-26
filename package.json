@@ -18,6 +18,8 @@
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.5",
@@ -31,6 +33,7 @@
   "devDependencies": {
     "@types/chai": "^5.0.1",
     "@types/cors": "^2.8.17",
+    "@types/hpp": "^0.2.6",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/mocha": "^10.0.10",
     "chai": "^5.1.2",

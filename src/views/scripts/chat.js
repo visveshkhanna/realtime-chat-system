@@ -29,6 +29,7 @@ const socket = io("ws://localhost:3001", {
   query: {
     id: chatInfo.id,
     jwt: localStorage.getItem("jwt"),
+    username: localStorage.getItem("username"),
   },
 });
 
@@ -42,8 +43,6 @@ function updateTypingStatus() {
     actionView.innerText = "";
     return;
   }
-
-  // typing = typing.filter(name => name !== chatInfo.sender)
 
   const isPlural = typing.length > 1;
   actionView.innerText = `${typing.join(", ")} ${

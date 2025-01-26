@@ -24,6 +24,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   }
 
   localStorage.setItem("jwt", response.token);
+  localStorage.setItem("username", username);
 
   window.location.href = "/";
 });
